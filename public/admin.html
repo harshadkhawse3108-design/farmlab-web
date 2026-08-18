@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FarmLab Admin Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <!-- Login Screen -->
+  <div id="login-screen" class="login-screen">
+    <div class="login-card">
+      <div class="login-header">
+        <span class="logo">🌾</span>
+        <h1>FarmLab Admin</h1>
+        <p>Sign in to manage your portal</p>
+      </div>
+      <form id="login-form">
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="login-username" placeholder="Enter username" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="login-password" placeholder="Enter password" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        <p class="login-hint">Default: admin / admin123</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin Dashboard -->
+  <div id="admin-dashboard" class="admin-dashboard hidden">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <span class="logo">🌾</span>
+        <h2>FarmLab</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-section="dashboard">
+          <span class="icon">📊</span> Dashboard
+        </a>
+        <a href="#" class="nav-item" data-section="posts">
+          <span class="icon">📝</span> Posts
+        </a>
+        <a href="#" class="nav-item" data-section="market">
+          <span class="icon">📈</span> Market Prices
+        </a>
+        <a href="#" class="nav-item" data-section="ads">
+          <span class="icon">📢</span> Advertisements
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm" onclick="logout()">🚪 Logout</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="top-header">
+        <h1 id="page-title">Dashboard</h1>
+        <div class="header-actions">
+          <span id="admin-name">Admin</span>
+          <a href="/" target="_blank" class="btn btn-outline btn-sm">View Site →</a>
+        </div>
+      </header>
+
+      <!-- Dashboard Section -->
+      <section id="section-dashboard" class="section active">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">📝</div>
+            <div class="stat-info">
+              <span class="stat-value" id="dash-posts">0</span>
+              <span class="stat-label">Total Posts</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">❤️</div>
+            <div class="stat-info">
+              <span class="stat-value" id="dash-likes">0</span>
+              <span class="stat-label">Total Likes</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">👁️</div>
+            <div class="stat-info">
+              <span class="stat-value" id="dash-views">0</span>
+              <span class="stat-label">Total Views</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🟢</div>
+            <div class="stat-info">
+              <span class="stat-value" id="dash-viewers">0</span>
+              <span class="stat-label">Online Now</span>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Recent Posts</h3>
+          <div id="recent-posts-list"></div>
+        </div>
+      </section>
+
+      <!-- Posts Section -->
+      <section id="section-posts" class="section">
+        <div class="section-header">
+          <h2>Manage Posts</h2>
+          <button class="btn btn-primary" onclick="showPostModal()">+ New Post</button>
+        </div>
+        <div class="card">
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Author</th>
+                  <th>Views</th>
+                  <th>Likes</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="posts-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Market Prices Section -->
+      <section id="section-market" class="section">
+        <div class="section-header">
+          <h2>Market Prices</h2>
+          <button class="btn btn-primary" onclick="showMarketModal()">+ Add Price</button>
+        </div>
+        <div class="card">
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Commodity</th>
+                  <th>Price (₹)</th>
+                  <th>Market</th>
+                  <th>Change</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="market-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ads Section -->
+      <section id="section-ads" class="section">
+        <div class="section-header">
+          <h2>Advertisements</h2>
+          <button class="btn btn-primary" onclick="showAdModal()">+ New Ad</button>
+        </div>
+        <div class="card">
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Position</th>
+                  <th>Advertiser</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="ads-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+
+  <!-- Post Modal -->
+  <div id="post-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="post-modal-title">New Post</h3>
+        <button class="close-btn" onclick="closeModal('post-modal')">&times;</button>
+      </div>
+      <form id="post-form">
+        <input type="hidden" id="post-id">
+        <div class="form-group">
+          <label>Title *</label>
+          <input type="text" id="post-title" required>
+        </div>
+        <div class="form-group">
+          <label>Content *</label>
+          <textarea id="post-content" rows="5" required></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Category</label>
+            <select id="post-category"></select>
+          </div>
+          <div class="form-group">
+            <label>Author</label>
+            <input type="text" id="post-author" value="FarmLab Team">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="post-is-daily"> Set as Daily Tip
+          </label>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('post-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Post</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Market Price Modal -->
+  <div id="market-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="market-modal-title">Add Market Price</h3>
+        <button class="close-btn" onclick="closeModal('market-modal')">&times;</button>
+      </div>
+      <form id="market-form">
+        <input type="hidden" id="market-id">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Commodity *</label>
+            <input type="text" id="market-commodity" required>
+          </div>
+          <div class="form-group">
+            <label>Price (₹) *</label>
+            <input type="number" id="market-price" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Market *</label>
+            <input type="text" id="market-name" required>
+          </div>
+          <div class="form-group">
+            <label>Unit</label>
+            <input type="text" id="market-unit" value="क्विंटल">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('market-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Ad Modal -->
+  <div id="ad-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="ad-modal-title">New Advertisement</h3>
+        <button class="close-btn" onclick="closeModal('ad-modal')">&times;</button>
+      </div>
+      <form id="ad-form">
+        <input type="hidden" id="ad-id">
+        <div class="form-group">
+          <label>Title *</label>
+          <input type="text" id="ad-title" required>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <input type="text" id="ad-description">
+        </div>
+        <div class="form-group">
+          <label>Image URL *</label>
+          <input type="url" id="ad-image" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Link URL</label>
+            <input type="url" id="ad-link">
+          </div>
+          <div class="form-group">
+            <label>Position</label>
+            <select id="ad-position">
+              <option value="top">Top Banner</option>
+              <option value="sidebar">Sidebar</option>
+              <option value="bottom">Bottom Banner</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Advertiser</label>
+          <input type="text" id="ad-advertiser">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('ad-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Ad</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

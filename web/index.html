@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FarmLab - कृषि पोर्टल | Daily Tips, Market Prices & More</title>
+  <meta name="description" content="FarmLab - किसानों के लिए दैनिक कृषि टिप्स, मंडी भाव, मौसम अपडेट और सरकारी योजनाएं">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Live Viewer Counter -->
+  <div class="viewer-counter">
+    <div class="pulse-dot"></div>
+    <span id="viewer-count">0</span> किसान ऑनलाइन
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <span class="logo-icon">🌾</span>
+        <div class="logo-text">
+          <h1>FarmLab</h1>
+          <span class="tagline">कृषि की नई सोच</span>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="#daily-tip" class="nav-link">आज का टिप</a>
+        <a href="#market-prices" class="nav-link">मंडी भाव</a>
+        <a href="#posts" class="nav-link">सभी पोस्ट</a>
+        <button class="theme-toggle" id="theme-toggle" title="थीम बदलें">
+          <span class="sun-icon">Light</span>
+          <span class="moon-icon">Dark</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Top Ad Banner -->
+  <div class="ad-banner ad-top" id="ad-top"></div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container main-grid">
+      
+      <!-- Left Column -->
+      <div class="content-column">
+        
+        <!-- Daily Tip Section -->
+        <section class="daily-tip-section" id="daily-tip">
+          <div class="section-badge">🌱 आज का कृषि टिप</div>
+          <div class="daily-tip-card" id="daily-post">
+            <div class="tip-icon">💡</div>
+            <h2 class="tip-title">Loading...</h2>
+            <p class="tip-content">कृपया प्रतीक्षा करें...</p>
+            <div class="tip-footer">
+              <span class="tip-author">— FarmLab</span>
+              <span class="tip-views">👁 0 views</span>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- Market Prices Section -->
+        <section class="market-section" id="market-prices">
+          <h2 class="section-title">📊 आज के मंडी भाव</h2>
+          <div class="market-prices-grid" id="market-prices-list">
+            <!-- Market prices loaded here -->
+          </div>
+          <p class="market-disclaimer">* भाव स्थानीय मंडी के अनुसार भिन्न हो सकते हैं</p>
+        </section>
+
+        <!-- Stats Bar -->
+        <section class="stats-bar">
+          <div class="stat-item">
+            <span class="stat-icon">📝</span>
+            <span class="stat-number" id="stat-posts">0</span>
+            <span class="stat-label">कुल पोस्ट</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon">❤️</span>
+            <span class="stat-number" id="stat-likes">0</span>
+            <span class="stat-label">कुल लाइक</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon">👁</span>
+            <span class="stat-number" id="stat-views">0</span>
+            <span class="stat-label">कुल व्यूज</span>
+          </div>
+        </section>
+
+        <!-- Category Filter -->
+        <section class="filter-section" id="posts">
+          <h2 class="section-title">📚 सभी पोस्ट देखें</h2>
+          <div class="category-filters">
+            <button class="filter-btn active" data-category="all">सभी</button>
+            <button class="filter-btn" data-category="daily-tip">💡 डेली टिप</button>
+            <button class="filter-btn" data-category="market-price">📈 मंडी भाव</button>
+            <button class="filter-btn" data-category="weather-alert">🌤️ मौसम</button>
+            <button class="filter-btn" data-category="government-scheme">🏛️ सरकारी योजना</button>
+            <button class="filter-btn" data-category="pest-control">🐛 कीट नियंत्रण</button>
+            <button class="filter-btn" data-category="crop-advice">🌱 फसल सलाह</button>
+          </div>
+        </section>
+
+        <!-- Posts Feed -->
+        <section class="posts-feed" id="posts-feed">
+          <div class="loading">पोस्ट लोड हो रहे हैं...</div>
+        </section>
+
+      </div>
+
+      <!-- Right Column - Sidebar -->
+      <aside class="sidebar">
+        
+        <!-- Sidebar Ad -->
+        <div class="ad-banner ad-sidebar" id="ad-sidebar"></div>
+
+        <!-- Quick Links -->
+        <div class="sidebar-section">
+          <h3>🔗 उपयोगी लिंक</h3>
+          <ul class="quick-links">
+            <li><a href="#">PM-KISAN पोर्टल</a></li>
+            <li><a href="#">मौसम विभाग</a></li>
+            <li><a href="#">e-NAM मंडी</a></li>
+            <li><a href="#">कृषि विभाग</a></li>
+            <li><a href="#">फसल बीमा</a></li>
+          </ul>
+        </div>
+
+        <!-- Trending Posts -->
+        <div class="sidebar-section">
+          <h3>🔥 लोकप्रिय पोस्ट</h3>
+          <div class="trending-list" id="trending-list">
+            <!-- Trending posts loaded here -->
+          </div>
+        </div>
+
+        <!-- Share Section -->
+        <div class="sidebar-section">
+          <h3>📱 शेयर करें</h3>
+          <div class="share-buttons">
+            <button class="share-btn whatsapp" onclick="shareWhatsApp()">WhatsApp</button>
+            <button class="share-btn facebook" onclick="shareFacebook()">Facebook</button>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+  </main>
+
+  <!-- Bottom Ad Banner -->
+  <div class="ad-banner ad-bottom" id="ad-bottom"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="logo-icon">🌾</span>
+          <span>FarmLab</span>
+        </div>
+        <p>© 2026 FarmLab. किसानों की सेवा में समर्पित 💚</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
