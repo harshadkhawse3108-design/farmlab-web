@@ -8,14 +8,25 @@ const router = Router();
 // Combined init API - all data in one call
 router.get('/init', async (req, res) => {
   try {
-    const [daily, posts, trending, marketPrices, ads, statsData] = await Promise.all([
-      postService.getDaily(),
-      postService.getAll(),
-      postService.getTrending(5),
-      marketPriceService.getAll(),
-      advertisementService.getActive(),
-      postService.getStats()
-    ]);
+    console.log('Init API called');
+    
+    const posts = await postService.getAll();
+    console.log('Posts fetched:', posts.length);
+    
+    const daily = await postService.getDaily();
+    console.log('Daily fetched');
+    
+    const trending = await postService.getTrending(5);
+    console.log('Trending fetched');
+    
+    const marketPrices = await marketPriceService.getAll();
+    console.log('Market prices fetched:', marketPrices.length);
+    
+    const ads = await advertisementService.getActive();
+    console.log('Ads fetched:', ads.length);
+    
+    const statsData = await postService.getStats();
+    console.log('Stats fetched');
     
     // Transform _id to id for frontend compatibility
     const transformId = (doc: any) => doc ? { ...doc, id: doc._id?.toString() || doc.id } : null;
@@ -29,9 +40,9 @@ router.get('/init', async (req, res) => {
       ads: transformArray(ads),
       stats: { ...statsData, currentViewers: 0 }
     });
-  } catch (error) {
-    console.error('Init API Error:', error);
-    res.status(500).json({ error: 'Failed to load data', details: String(error) });
+  } catch (error: any) {
+    console.error('Init API Error:', error.message, error.stack);
+    res.status(500).json({ error: 'Failed to load data', message: error.message });
   }
 });
 
