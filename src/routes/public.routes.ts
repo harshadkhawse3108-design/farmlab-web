@@ -17,16 +17,21 @@ router.get('/init', async (req, res) => {
       postService.getStats()
     ]);
     
+    // Transform _id to id for frontend compatibility
+    const transformId = (doc: any) => doc ? { ...doc, id: doc._id?.toString() || doc.id } : null;
+    const transformArray = (arr: any[]) => arr.map(transformId);
+    
     res.json({
-      daily,
-      posts,
-      trending,
-      marketPrices,
-      ads,
+      daily: transformId(daily),
+      posts: transformArray(posts),
+      trending: transformArray(trending),
+      marketPrices: transformArray(marketPrices),
+      ads: transformArray(ads),
       stats: { ...statsData, currentViewers: 0 }
     });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to load data' });
+    console.error('Init API Error:', error);
+    res.status(500).json({ error: 'Failed to load data', details: String(error) });
   }
 });
 
